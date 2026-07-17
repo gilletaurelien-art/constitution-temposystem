@@ -43,15 +43,19 @@
     --ts-veil: linear-gradient(180deg, rgba(251, 250, 245, 0) 0%,
       rgba(251, 250, 245, 0.35) 60%, rgba(251, 250, 245, 0.6) 100%);
 
-    /* ---- Encres marines (le texte vit sur le ciel, §6) ---- */
+    /* ---- Deux couleurs d'écriture SEULEMENT : le NOIR ou le kaki ----
+       Toutes les anciennes encres marines retombent sur le noir ; seuls les
+       accents restent kaki. Le bleu des liens (--ts-ciel-encre) passe au kaki.
+       Règle : si ce n'est pas kaki, c'est noir. */
     --ts-parchment: #fbfaf5;
-    --ts-encre-titre: #0e2a38;   /* titres — encre d'abysse */
-    --ts-sous-titre: #19525b;    /* sous-titres, kickers */
-    --ts-encre: #143140;         /* texte courant */
-    --ts-encre-muted: rgba(20, 49, 64, 0.82);
-    --ts-encre-faint: rgba(20, 49, 64, 0.5);
-    --ts-hairline: rgba(20, 49, 64, 0.14);
-    --ts-ciel-encre: #17618f;    /* bleu ciel lisible — kickers, labels */
+    --noir: #171310;             /* le noir d'écriture (chaud, comme les plaques) */
+    --ts-encre-titre: var(--noir);
+    --ts-sous-titre: var(--noir);
+    --ts-encre: var(--noir);
+    --ts-encre-muted: rgba(23, 19, 16, 0.82);
+    --ts-encre-faint: rgba(23, 19, 16, 0.55);
+    --ts-hairline: rgba(23, 19, 16, 0.14);
+    --ts-ciel-encre: var(--kaki-encre); /* plus de bleu : les liens passent au kaki */
 
     /* ---- Kaki (croissance, validation — charte §7, remplace l'ocre) ---- */
     --kaki: #7e9a4f;             /* --ts-sap : feuillage, décoratif */
@@ -235,7 +239,12 @@
   h2.titre .fr,
   h3.plaque,
   .signer {
-    display: inline-block;
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
     position: relative;
     overflow: hidden;
     font-family: var(--serif);
@@ -279,7 +288,7 @@
     line-height: 1.4;
     padding: 0.36em 0.72em;
     box-shadow: 0 22px 46px -20px rgba(214, 112, 74, 0.55);
-    margin: 0 0 1.3rem;
+    margin: 0 auto 1.3rem;
   }
   .fronton .sous-titre {
     font-family: var(--serif);
@@ -322,23 +331,15 @@
   }
   .epigraphe strong { color: var(--kaki-encre); font-weight: 700; font-style: normal; }
 
-  /* — Les titres de section : kicker mono kaki + plaque d'or — */
+  /* — Les titres de section : plaque d'or centrée (kickers supprimés) — */
   h2.titre {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.26em;
-    color: var(--kaki-encre);
-    font-weight: 500;
-    margin: 4.6rem 0 1rem;
+    margin: 4.6rem 0 1.4rem;
     padding: 0;
     border: none;
   }
   h2.titre .fr {
-    display: inline-block;
     font-size: clamp(1.35rem, 3.2vw, 1.95rem);
     line-height: 1.45;
-    margin-top: 0.75rem;
     padding: 0.3em 0.66em;
   }
 
@@ -347,7 +348,7 @@
     font-size: clamp(1.3rem, 3vw, 1.75rem);
     line-height: 1.45;
     padding: 0.3em 0.64em;
-    margin: 3.4rem 0 1.4rem;
+    margin: 3.4rem auto 1.4rem;
   }
 
   p { margin: 0 0 1.35rem; color: var(--ts-encre-muted); }
@@ -511,28 +512,28 @@
   <p>Ce texte n'est pas une liste de bonnes intentions. Il énonce les <strong class="souligne">droits que nous exigeons</strong>, et les renoncements que ceux qui construisent nos outils s'imposent pour les honorer : renoncer à capter notre attention, à nous vendre, à jouer de notre regret, à nous enfermer, à mesurer notre repos comme une faute.</p>
   <p>Ce texte est écrit d'une seule voix — la nôtre. Chaque article nous appartient. Chacun de nous peut le revendiquer, le citer, l'opposer à quiconque prétend décider à sa place. Une économie numérique peut prospérer sans faire de notre intimité une marchandise ; nous en énonçons ici les conditions.</p>
 
-  <h2 class="titre">Article premier<span class="fr">De la nature de nos données</span></h2>
+  <h2 class="titre"><span class="fr">De la nature de nos données</span></h2>
   <p>Chacune de nos données représente une part de l'un de nous : une parole, une relation, une œuvre. À ce titre, <strong class="souligne">nos données ne sont pas un actif</strong>. Elles ne sont ni une matière première, ni une simple ressource économique. Les détenir crée un devoir envers nous — jamais un droit de propriété sur nous.</p>
   <p>Ce principe précède tout le reste. Ce qui suit n'est pas une liste de faveurs qu'on nous accorde : c'est la conséquence directe de ce que nos données sont.</p>
 
-  <h2 class="titre">Titre I<span class="fr">De notre personne</span></h2>
+  <h2 class="titre"><span class="fr">De notre personne</span></h2>
   <p class="article"><span class="lead">Article 2 — De notre dignité.</span> Chacun de nous est une fin, jamais un moyen : ni une ressource à extraire, ni un profil à exploiter, ni une métrique à maximiser. Aucun objectif — commercial, technique ou stratégique — ne justifie qu'on nous manipule, qu'on provoque notre dépendance, qu'on nous surveille en secret ou qu'on tire parti de nos fragilités.</p>
   <p class="article"><span class="lead">Article 3 — De notre souveraineté.</span> Nous restons maîtres de nos données. Chacun de nous peut en masquer l'accès à autrui sans détruire sa propre mémoire, refuser de figurer dans une œuvre collective — même déjà payée par un tiers — et effacer ce qui le concerne. Notre droit passe toujours avant celui de la transaction.</p>
   <p class="article"><span class="lead">Article 4 — De notre départ.</span> Chacun de nous peut partir quand il le veut, en emportant l'intégralité de ses données dans un format ouvert, documenté et réutilisable. Aucun verrou technique ne nous retiendra : on reste par attachement, jamais par captivité.</p>
   <p class="article"><span class="lead">Article 5 — De notre protection quand nous sommes fragiles.</span> Enfants, aînés, endeuillés, isolés, malades ou simplement fragilisés : lorsque l'un de nous est vulnérable, il est davantage protégé, jamais davantage exploité — infrastructures dédiées, ni notation, ni comparaison, ni exposition. Notre vulnérabilité ne sera jamais un levier pour nous convertir. Et celui de nous qui a grandi ici mineur reçoit, au jour de sa majorité, l'histoire de sa vie numérique en pleine souveraineté — un passage de dignité, non une simple permission technique.</p>
 
-  <h2 class="titre">Titre II<span class="fr">De nos rythmes</span></h2>
+  <h2 class="titre"><span class="fr">De nos rythmes</span></h2>
   <p class="article"><span class="lead">Article 6 — De notre attention.</span> Notre attention n'est pas une matière première. Notifications, recommandations et relances doivent servir un besoin qui est réellement le nôtre, jamais l'obsession de nous faire revenir, cliquer ou rester. Un bon outil augmente la valeur du temps que nous choisissons, non la durée du temps qu'il nous prend.</p>
   <p class="article"><span class="lead">Article 7 — De notre silence et de notre repos.</span> Ne rien faire est un droit. Aucun système ne lira notre silence comme un manque, une dette ou un problème à corriger, et ne relancera celui de nous qui est resté tranquille. Nous avons le droit d'être absents ; c'est aux outils de respecter nos rythmes, pas à nous de suivre les leurs. <strong class="souligne">Un système humain ne panique pas devant notre silence.</strong></p>
   <p class="article"><span class="lead">Article 8 — De l'asymétrie de l'attention.</span> Un geste que l'un de nous porte à un autre peut être rendu visible par un signal doux. L'absence de geste, elle, ne sera jamais affichée, comptée ni devinée : on peut célébrer qui a été présent, jamais désigner qui ne l'a pas été. Les compteurs de dette relationnelle, les accusés de lecture imposés et les scores de présence n'ont pas leur place parmi nous.</p>
   <p class="article"><span class="lead">Article 9 — Contre la manipulation.</span> Aucune interface ne nous poussera à agir contre notre intérêt, ne cachera le moyen de refuser, ne compliquera notre sortie, ni ne rendra le choix le plus sain moins visible que le plus rentable. On ne jouera jamais de notre regret : la peur de rater, la culpabilité et l'urgence fabriquée ne sont pas des instruments de croissance. Un accord arraché à notre fatigue n'est pas un consentement.</p>
 
-  <h2 class="titre">Titre III<span class="fr">De notre mémoire</span></h2>
+  <h2 class="titre"><span class="fr">De notre mémoire</span></h2>
   <p class="article"><span class="lead">Article 10 — De l'inaliénabilité de notre passé.</span> L'accès de chacun de nous à ses liens essentiels et à l'histoire brute de sa vie numérique ne dépendra jamais d'un paiement, d'une menace d'expiration ou d'une suppression punitive. On peut nous vendre de l'espace pour demain ; on ne menacera jamais la survie de notre hier. <strong class="souligne">Notre mémoire ne se rançonne pas.</strong></p>
   <p class="article"><span class="lead">Article 11 — De la non-marchandisation.</span> On ne collecte de nous que le minimum nécessaire, on conserve avec raison, on nous explique les durées. Nos données ne sont ni vendues, ni louées, ni cédées à des fins publicitaires. Aucun de nos contenus n'entraîne une intelligence artificielle sans notre accord explicite, précis et révocable : la machine nous assiste, elle ne possède jamais nos histoires.</p>
   <p class="article"><span class="lead">Article 12 — De l'économie qui nous respecte.</span> Nous payons pour un service réellement rendu — une mise en forme, une édition, un objet, un accompagnement — jamais pour le simple accès à nos propres liens. La valeur vient du travail ajouté, pas de l'exploitation silencieuse de ce que nous sommes.</p>
 
-  <h2 class="titre">Titre IV<span class="fr">De ce que nous exigeons</span></h2>
+  <h2 class="titre"><span class="fr">De ce que nous exigeons</span></h2>
   <p class="article"><span class="lead">Article 13 — De notre droit de comprendre.</span> Toute décision automatique qui pèse sur l'un de nous doit pouvoir lui être expliquée dans une langue claire. Nous savons quand une machine intervient, selon quelles logiques principales, et ce que nous pouvons faire pour la contester.</p>
   <p class="article"><span class="lead">Article 14 — De la responsabilité qui se prouve.</span> Une bonne intention ne suffit pas : elle doit se voir dans l'architecture, les données, les mesures et les arbitrages budgétaires. <strong class="souligne">La bienveillance n'est pas un ton marketing : c'est une contrainte technique.</strong> La croissance et l'engagement restent subordonnés à notre confiance, à notre clarté et à l'allègement de notre charge mentale. Le silence de l'un de nous n'est jamais mesuré contre lui.</p>
   <p class="article"><span class="lead">Article 15 — De l'honnêteté.</span> On ne nous présente rien comme acquis tant que ce n'est pas construit. Une promesse de sécurité, de chiffrement ou de pérennité s'affiche comme un engagement daté, jamais comme un fait accompli. Les écarts entre la parole et la pratique nous sont dits publiquement, avec les mesures prises pour les corriger.</p>
