@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>La Constitution des droits numériques de la personne</title>
+<meta name="description" content="Nous, personnes du numérique — nos droits, gravés avant la première ligne de code. Un texte que chaque membre signe et s'approprie." />
+<meta property="og:title" content="La Constitution des droits numériques de la personne" />
+<meta property="og:description" content="Nous, personnes du numérique, fixons ici les limites que le pouvoir des machines ne franchira pas. En signant, vous rejoignez ce « nous »." />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="MANA" />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:url" content="https://constitution.temposystem.org/" />
+<meta property="og:image" content="https://constitution.temposystem.org/og.png" />
+<link rel="canonical" href="https://constitution.temposystem.org/" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="La Constitution des droits numériques de la personne" />
+<meta name="twitter:description" content="Nous, personnes du numérique — nos droits, gravés avant la première ligne de code." />
+<meta name="twitter:image" content="https://constitution.temposystem.org/og.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     LA CONSTITUTION DES DROITS NUMÉRIQUES DE LA PERSONNE
+     Charte « Le Temps Vivant » (TEMPOSYSTEM) : le pixel dessine la
+     nature — ciel bleu en gros pixels, soleil qui respire, nuages
+     et mouettes à la dérive, archipel ancré en bas. Le texte vit sur
+     le ciel, en encre marine. Deux voix : Philosopher (manifeste) ·
+     SF Mono (courante). Un seul visage : le jour. Pas de mode nuit.
+     Voix du texte : « nous » — la Constitution est prononcée par les
+     personnes elles-mêmes ; le « vous » n'apparaît qu'au seuil.
+     ============================================================ */
+  :root {
+    color-scheme: light; /* jamais de mode nuit : le texte garde un seul visage */
+
+    /* ---- Ciel pixel (arrière-plan vivant, charte §3/§6/§11) ---- */
+    --ts-sky: linear-gradient(
+      #8ccbee 0 15%, #93cfef 15% 29%, #a0d5f1 29% 43%, #aadaf2 43% 57%,
+      #b3def4 57% 71%, #bce3f5 71% 85%, #c6e8f7 85% 100%);
+    --ts-veil: linear-gradient(180deg, rgba(251, 250, 245, 0) 0%,
+      rgba(251, 250, 245, 0.35) 60%, rgba(251, 250, 245, 0.6) 100%);
+
+    /* ---- Encres marines (le texte vit sur le ciel, §6) ---- */
+    --ts-parchment: #fbfaf5;
+    --ts-encre-titre: #0e2a38;   /* titres — encre d'abysse */
+    --ts-sous-titre: #19525b;    /* sous-titres, kickers */
+    --ts-encre: #143140;         /* texte courant */
+    --ts-encre-muted: rgba(20, 49, 64, 0.82);
+    --ts-encre-faint: rgba(20, 49, 64, 0.5);
+    --ts-hairline: rgba(20, 49, 64, 0.15);
+    --ts-ciel-encre: #17618f;       /* bleu ciel lisible — kickers, labels */
+    --ts-terracotta-encre: #b44e2e; /* aube — accent (italiques, liens) */
+
+    /* ---- Le cycle du jour (accents) ---- */
+    --ts-sun: #f2a73b;
+    --ts-honey: #e7b441;
+    --ts-terracotta: #d6704a;
+    --ts-tide: #3e8f86;
+    --ts-dusk: #5b6ba6;
+    --ts-grad-sun: linear-gradient(135deg, var(--ts-terracotta), var(--ts-sun), var(--ts-honey));
+
+    /* ---- Rythme — respirer, dériver, revenir (§13) ---- */
+    --ts-souffle: 5.2s;
+    --ts-derive-1: 90s;
+    --ts-derive-2: 130s;
+    --ts-derive-3: 68s;
+    --ts-flotte: 9s;
+
+    /* ---- Voix typographiques (§8) ---- */
+    --mono: "SFMono-Regular", "SF Mono", "Roboto Mono", "Liberation Mono", "Courier New", monospace;
+    --serif: "Philosopher", Georgia, "Times New Roman", serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--ts-sky);
+    color: var(--ts-encre);
+    font-family: var(--mono);
+    font-size: 16px;
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ============================================================
+     LE CIEL PIXEL — décor fondateur, fixe : le contenu défile, le
+     ciel reste. Toutes les animations sont transform/opacity.
+     Purement décoratif → aria-hidden, sous le contenu (z-index 0).
+     (Porté depuis SkyBackground de temposystem-os ; sans le bateau.)
+     ============================================================ */
+  .sky-bg {
+    position: fixed; inset: 0; z-index: 0;
+    overflow: hidden; pointer-events: none;
+    background: var(--ts-sky);
+  }
+  .sky-bg svg { display: block; width: 100%; height: auto; }
+
+  /* ── Soleil — respire, posé dans le ciel ── */
+  .sky-bg__sun {
+    position: absolute;
+    top: clamp(30px, 8vh, 84px);
+    right: clamp(16px, 7vw, 150px);
+    width: clamp(96px, 12vw, 170px);
+    transform-origin: 50% 50%;
+    animation: sky-breath var(--ts-souffle) ease-in-out infinite;
+    filter: drop-shadow(0 10px 28px rgba(242, 167, 59, 0.38));
+  }
+  .sky-sun-body  { fill: #f2a73b; }
+  .sky-sun-light { fill: #f8c468; }
+  .sky-sun-shade { fill: #de8f2f; }
+  .sky-sun-ray   { fill: #e7b441; opacity: 0.9; }
+  @keyframes sky-breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+
+  /* ── Nuages — blocky, ombre bleutée, dérive lente + flottement ── */
+  .sky-bg__cloud { position: absolute; will-change: transform; }
+  .sky-bg__cloud > svg { animation: sky-float var(--ts-flotte) ease-in-out infinite alternate; }
+  .sky-c-hi    { fill: #ffffff; }
+  .sky-c-w     { fill: #eef5fc; }
+  .sky-c-swirl { fill: #d6e5f2; }
+  .sky-c-s     { fill: #c7deef; }
+  .sky-bg__cloud--1 {
+    top: 15vh; left: 14vw; width: clamp(150px, 16vw, 240px);
+    animation: sky-drift calc(var(--ts-derive-1) * 2.2) linear infinite;
+    animation-delay: calc(var(--ts-derive-1) * -1.1);
+  }
+  .sky-bg__cloud--2 {
+    top: 5vh; left: 42vw; width: clamp(100px, 11vw, 160px);
+    animation: sky-drift calc(var(--ts-derive-2) * 2.2) linear infinite;
+    animation-delay: calc(var(--ts-derive-2) * -0.55);
+  }
+  .sky-bg__cloud--3 {
+    top: 30vh; left: 72vw; width: clamp(70px, 8vw, 120px);
+    animation: sky-drift calc(var(--ts-derive-3) * 2.2) linear infinite;
+    animation-delay: calc(var(--ts-derive-3) * -1.65);
+  }
+  .sky-bg__cloud--2 > svg { animation-duration: calc(var(--ts-flotte) * 1.3); }
+  .sky-bg__cloud--3 > svg { animation-duration: calc(var(--ts-flotte) * 0.8); }
+  @keyframes sky-drift { from { transform: translateX(-110vw); } to { transform: translateX(110vw); } }
+  @keyframes sky-float { from { transform: translateY(-4px); } to { transform: translateY(4px); } }
+
+  /* ── Mouettes — silhouettes d'encre, plané + petites rafales d'ailes ── */
+  .sky-bg__gull { position: absolute; will-change: transform; opacity: 0.55; }
+  .sky-bg__gull svg { fill: var(--ts-encre); }
+  .sky-bg__gull > svg { animation: gull-tangage 7s ease-in-out infinite alternate; }
+  .gull-glide { opacity: 1; animation: gull-pose-glide 3.2s infinite; }
+  .gull-flap  { opacity: 0; animation: gull-pose-flap 3.2s infinite; }
+  .sky-bg__gull--1 { top: 21vh; left: 34vw; width: 30px; animation: sky-drift 130s linear infinite; animation-delay: -63s; }
+  .sky-bg__gull--2 { top: 24vh; left: 40vw; width: 21px; animation: sky-drift 138s linear infinite; animation-delay: -60s; opacity: 0.45; }
+  .sky-bg__gull--2 > svg { animation-duration: 5.5s; animation-delay: -2s; }
+  .sky-bg__gull--2 .gull-glide, .sky-bg__gull--2 .gull-flap { animation-delay: -1.3s; animation-duration: 2.9s; }
+  .sky-bg__gull--3 { top: 11vh; left: 76vw; width: 25px; animation: sky-drift 112s linear infinite; animation-delay: -48s; opacity: 0.5; }
+  .sky-bg__gull--3 > svg { animation-duration: 8.5s; animation-delay: -4s; }
+  .sky-bg__gull--3 .gull-glide, .sky-bg__gull--3 .gull-flap { animation-delay: -2.1s; animation-duration: 3.6s; }
+  @keyframes gull-pose-glide { 0%,4.9% { opacity: 0; } 5%,9.9% { opacity: 1; } 10%,14.9% { opacity: 0; } 15%,100% { opacity: 1; } }
+  @keyframes gull-pose-flap  { 0%,4.9% { opacity: 1; } 5%,9.9% { opacity: 0; } 10%,14.9% { opacity: 1; } 15%,100% { opacity: 0; } }
+  @keyframes gull-tangage { from { transform: translateY(-6px) rotate(-2deg); } to { transform: translateY(6px) rotate(2deg); } }
+
+  /* ── Voile de lumière — assied le texte sur le ciel ── */
+  .sky-bg__veil { position: absolute; inset: 0; background: var(--ts-veil); }
+
+  /* ── Le monde marin — archipel ancré en bas, fondu dans le ciel (sans bateau) ── */
+  .sky-bg__sea {
+    position: absolute; left: 0; bottom: 0; width: 100%; height: auto;
+    display: block; pointer-events: none;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 42%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 42%);
+  }
+  @media (max-width: 900px) {
+    .sky-bg__sea { height: clamp(180px, 34vh, 300px); object-fit: cover; object-position: center bottom; }
+  }
+  @media (max-width: 700px) {
+    .sky-bg__sun { right: 6vw; width: clamp(84px, 22vw, 120px); }
+    .sky-bg__cloud--2 { left: 56vw; }
+  }
+
+  /* ============================================================
+     LE PARCHEMIN — surface de lecture en verre, posée sur le ciel.
+     ============================================================ */
+  .parchemin {
+    position: relative;
+    z-index: 1;
+    max-width: 46rem;
+    margin: clamp(1.6rem, 5vw, 3.5rem) auto;
+    padding: clamp(2.2rem, 6vw, 4rem) clamp(1.2rem, 5vw, 3rem) 3rem;
+    background: rgba(251, 250, 245, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 14px;
+    box-shadow: 0 24px 70px rgba(14, 42, 56, 0.14);
+  }
+
+  /* — Le fronton — */
+  .fronton { text-align: center; padding-bottom: 1.2rem; }
+  .fronton h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(1.9rem, 5.5vw, 2.9rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--ts-encre-titre);
+    margin: 0 0 0.7rem;
+  }
+  .fronton .sous-titre {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--ts-terracotta-encre);
+    font-size: 1.16rem;
+    line-height: 1.5;
+    margin: 0 0 1rem;
+  }
+  .fronton .version {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.02em;
+    color: var(--ts-encre-faint);
+    margin: 0;
+  }
+
+  /* — La règle du jour (dégradé aube→soleil→miel) — */
+  .filet-or {
+    border: none;
+    height: 2px;
+    max-width: 8rem;
+    margin: 2.2rem auto;
+    background: var(--ts-grad-sun);
+    border-radius: 2px;
+    opacity: 0.85;
+  }
+
+  /* — L'épigraphe — */
+  .epigraphe {
+    font-family: var(--serif);
+    text-align: center;
+    font-style: italic;
+    color: var(--ts-encre-titre);
+    font-size: 1.24rem;
+    line-height: 1.55;
+    margin: 0 auto;
+    max-width: 34rem;
+  }
+  .epigraphe strong { color: var(--ts-terracotta-encre); font-weight: 700; font-style: normal; }
+
+  /* — Les titres de section — */
+  h2.titre {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--ts-ciel-encre);
+    font-weight: 500;
+    margin: 3rem 0 0.4rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--ts-hairline);
+  }
+  h2.titre .fr {
+    display: block;
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: var(--ts-encre-titre);
+    margin-top: 0.4rem;
+  }
+
+  h3.preambule {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--ts-encre-titre);
+    margin: 3rem 0 0.6rem;
+  }
+
+  p { margin: 0 0 1.2rem; color: var(--ts-encre-muted); }
+
+  /* — Les articles — */
+  .article { margin: 0 0 1.3rem; }
+  .article .lead {
+    color: var(--ts-terracotta-encre);
+    font-weight: 500;
+  }
+  strong.souligne { color: var(--ts-encre-titre); font-weight: 500; }
+
+  /* — La conclusion — */
+  .conclusion { margin-top: 1rem; }
+  .conclusion p:last-of-type {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ts-encre-titre);
+  }
+
+  /* — La filiation — */
+  .filiation { margin-top: 3rem; }
+  .filiation h3 { font-family: var(--serif); font-size: 1.28rem; font-weight: 400; color: var(--ts-encre-titre); margin: 0 0 0.5rem; }
+  .filiation > p { font-size: 0.94rem; color: var(--ts-encre-muted); margin: 0 0 1rem; }
+  .filiation ol { margin: 0; padding-left: 1.3rem; }
+  .filiation li { margin-bottom: 0.55rem; font-size: 0.94rem; color: var(--ts-encre-muted); }
+  .filiation a { color: var(--ts-terracotta-encre); text-decoration: none; border-bottom: 1px dotted var(--ts-hairline); font-weight: 500; }
+  .filiation a:hover { color: var(--ts-terracotta); border-bottom-color: var(--ts-terracotta); }
+  .filiation .qui { color: var(--ts-encre-faint); font-size: 0.88rem; }
+
+  /* — Le pied — */
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--ts-hairline);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--ts-encre-muted);
+    text-align: center;
+    line-height: 1.7;
+  }
+  footer a { color: var(--ts-ciel-encre); text-decoration: none; border-bottom: 1px dotted var(--ts-hairline); }
+  footer a:hover { color: var(--ts-terracotta-encre); border-bottom-color: var(--ts-terracotta-encre); }
+  footer .liens { margin-bottom: 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; justify-content: center; }
+  footer .signature { font-family: var(--serif); font-style: italic; font-size: 0.98rem; color: var(--ts-encre-muted); max-width: 30rem; margin: 1rem auto 0; }
+
+  /* — Badge « propulsé par TEMPOsystem » (commun à l'univers MANA) — */
+  .powered-tempo {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.65) 55%, #000 100%);
+    padding: 60px 20px 26px;
+    display: flex;
+    justify-content: center;
+  }
+  .powered-tempo a {
+    display: inline-flex;
+    align-items: center;
+    gap: 13px;
+    border: 1px solid rgba(255,255,255,.38);
+    border-radius: 7px;
+    padding: 7px 16px;
+    text-decoration: none;
+    color: #fff;
+    width: max-content;
+    transition: opacity .2s;
+  }
+  .powered-tempo a:hover { opacity: 0.78; }
+  .powered-tempo .pt-prefix { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; color: rgba(255,255,255,.72); line-height: 1; white-space: nowrap; }
+  .powered-tempo img { display: block; height: 44px; width: auto; }
+  .powered-tempo .pt-word { line-height: 1; white-space: nowrap; font-size: 19px; color: #fff; }
+  .powered-tempo .pt-tempo { font-family: var(--serif); font-weight: 700; }
+  .powered-tempo .pt-system { font-family: var(--mono); font-size: 14px; color: rgba(255,255,255,.82); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .sky-bg *, .sky-bg { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Le ciel pixel « Le Temps Vivant » — décor fondateur, fixe (sans bateau) -->
+<div class="sky-bg" aria-hidden="true">
+  <div class="sky-bg__sun">
+    <svg viewBox="-5 -5 23 23" shape-rendering="crispEdges"><rect class="sky-sun-ray" x="6" y="-4" width="1" height="1"/><rect class="sky-sun-ray" x="6" y="-3" width="1" height="1"/><rect class="sky-sun-ray" x="6" y="16" width="1" height="1"/><rect class="sky-sun-ray" x="6" y="17" width="1" height="1"/><rect class="sky-sun-ray" x="-4" y="6" width="2" height="1"/><rect class="sky-sun-ray" x="16" y="6" width="2" height="1"/><rect class="sky-sun-ray" x="-2" y="-2" width="1" height="1"/><rect class="sky-sun-ray" x="14" y="-2" width="1" height="1"/><rect class="sky-sun-ray" x="-2" y="14" width="1" height="1"/><rect class="sky-sun-ray" x="14" y="14" width="1" height="1"/><rect class="sky-sun-body" x="4" y="0" width="5" height="1"/><rect class="sky-sun-body" x="3" y="1" width="7" height="1"/><rect class="sky-sun-body" x="2" y="2" width="9" height="1"/><rect class="sky-sun-body" x="1" y="3" width="11" height="1"/><rect class="sky-sun-body" x="1" y="4" width="11" height="1"/><rect class="sky-sun-body" x="0" y="5" width="13" height="1"/><rect class="sky-sun-body" x="0" y="6" width="13" height="1"/><rect class="sky-sun-body" x="0" y="7" width="13" height="1"/><rect class="sky-sun-body" x="1" y="8" width="11" height="1"/><rect class="sky-sun-body" x="1" y="9" width="11" height="1"/><rect class="sky-sun-body" x="2" y="10" width="9" height="1"/><rect class="sky-sun-body" x="3" y="11" width="7" height="1"/><rect class="sky-sun-body" x="4" y="12" width="5" height="1"/><rect class="sky-sun-light" x="4" y="1" width="3" height="1"/><rect class="sky-sun-light" x="3" y="2" width="3" height="1"/><rect class="sky-sun-light" x="2" y="3" width="3" height="1"/><rect class="sky-sun-light" x="2" y="4" width="2" height="1"/><rect class="sky-sun-shade" x="8" y="9" width="3" height="1"/><rect class="sky-sun-shade" x="7" y="10" width="3" height="1"/><rect class="sky-sun-shade" x="6" y="11" width="3" height="1"/><rect class="sky-sun-shade" x="5" y="12" width="4" height="1"/></svg>
+  </div>
+
+  <div class="sky-bg__cloud sky-bg__cloud--1">
+    <svg viewBox="0 0 24 8" shape-rendering="crispEdges"><rect class="sky-c-hi" x="9" y="0" width="4" height="1"/><rect class="sky-c-hi" x="7" y="1" width="8" height="1"/><rect class="sky-c-w" x="5" y="2" width="12" height="1"/><rect class="sky-c-w" x="3" y="3" width="16" height="1"/><rect class="sky-c-w" x="1" y="4" width="21" height="1"/><rect class="sky-c-w" x="0" y="5" width="23" height="1"/><rect class="sky-c-swirl" x="6" y="4" width="4" height="1"/><rect class="sky-c-swirl" x="13" y="5" width="5" height="1"/><rect class="sky-c-s" x="0" y="6" width="23" height="1"/><rect class="sky-c-s" x="2" y="7" width="18" height="1"/></svg>
+  </div>
+  <div class="sky-bg__cloud sky-bg__cloud--2">
+    <svg viewBox="0 0 20 6" shape-rendering="crispEdges"><rect class="sky-c-hi" x="7" y="0" width="5" height="1"/><rect class="sky-c-w" x="4" y="1" width="11" height="1"/><rect class="sky-c-w" x="2" y="2" width="16" height="1"/><rect class="sky-c-w" x="1" y="3" width="18" height="1"/><rect class="sky-c-swirl" x="5" y="3" width="4" height="1"/><rect class="sky-c-s" x="1" y="4" width="18" height="1"/><rect class="sky-c-s" x="3" y="5" width="13" height="1"/></svg>
+  </div>
+  <div class="sky-bg__cloud sky-bg__cloud--3">
+    <svg viewBox="0 0 14 6" shape-rendering="crispEdges"><rect class="sky-c-hi" x="5" y="0" width="4" height="1"/><rect class="sky-c-w" x="3" y="1" width="8" height="1"/><rect class="sky-c-w" x="2" y="2" width="10" height="1"/><rect class="sky-c-swirl" x="6" y="2" width="3" height="1"/><rect class="sky-c-s" x="2" y="3" width="10" height="1"/><rect class="sky-c-s" x="4" y="4" width="6" height="1"/></svg>
+  </div>
+
+  <div class="sky-bg__gull sky-bg__gull--1"><svg viewBox="0 0 13 5" shape-rendering="crispEdges"><g class="gull-glide"><rect x="0" y="0" width="2" height="1"/><rect x="11" y="0" width="2" height="1"/><rect x="1" y="1" width="3" height="1"/><rect x="9" y="1" width="3" height="1"/><rect x="3" y="2" width="7" height="1"/></g><g class="gull-flap"><rect x="3" y="2" width="7" height="1"/><rect x="1" y="3" width="3" height="1"/><rect x="9" y="3" width="3" height="1"/><rect x="0" y="4" width="2" height="1"/><rect x="11" y="4" width="2" height="1"/></g></svg></div>
+  <div class="sky-bg__gull sky-bg__gull--2"><svg viewBox="0 0 13 5" shape-rendering="crispEdges"><g class="gull-glide"><rect x="0" y="0" width="2" height="1"/><rect x="11" y="0" width="2" height="1"/><rect x="1" y="1" width="3" height="1"/><rect x="9" y="1" width="3" height="1"/><rect x="3" y="2" width="7" height="1"/></g><g class="gull-flap"><rect x="3" y="2" width="7" height="1"/><rect x="1" y="3" width="3" height="1"/><rect x="9" y="3" width="3" height="1"/><rect x="0" y="4" width="2" height="1"/><rect x="11" y="4" width="2" height="1"/></g></svg></div>
+  <div class="sky-bg__gull sky-bg__gull--3"><svg viewBox="0 0 13 5" shape-rendering="crispEdges"><g class="gull-glide"><rect x="0" y="0" width="2" height="1"/><rect x="11" y="0" width="2" height="1"/><rect x="1" y="1" width="3" height="1"/><rect x="9" y="1" width="3" height="1"/><rect x="3" y="2" width="7" height="1"/></g><g class="gull-flap"><rect x="3" y="2" width="7" height="1"/><rect x="1" y="3" width="3" height="1"/><rect x="9" y="3" width="3" height="1"/><rect x="0" y="4" width="2" height="1"/><rect x="11" y="4" width="2" height="1"/></g></svg></div>
+
+  <div class="sky-bg__veil"></div>
+  <img class="sky-bg__sea" src="archipel-bandeau.jpg" alt="" aria-hidden="true" />
+</div>
+
+<main class="parchemin">
+
+  <header class="fronton">
+    <h1>La Constitution des droits numériques de la personne</h1>
+    <p class="sous-titre">Nos droits, gravés avant la première ligne de code. En signant, vous rejoignez ce «&nbsp;nous&nbsp;».</p>
+    <p class="version">Version 2.0 — juillet 2026 — texte vivant, écrit d'une seule voix : une constitution n'est jamais terminée.</p>
+  </header>
+
+  <hr class="filet-or" />
+
+  <p class="epigraphe">
+    <strong>Toute technologie exerce un pouvoir sur nos vies.</strong><br />
+    Nous, personnes du numérique, fixons ici les limites que ce pouvoir ne franchira pas.
+  </p>
+
+  <hr class="filet-or" />
+
+  <h3 class="preambule">Préambule</h3>
+  <p>Chaque jour, nous confions à des machines des fragments de nos vies : nos mots, nos liens, nos souvenirs, notre attention. Ces machines ne sont pas neutres — elles orientent ce que nous voyons, influencent ce que nous faisons, et gardent la trace de qui nous sommes. Un tel pouvoir appelle une limite. Cette limite, <strong class="souligne">c'est nous</strong>.</p>
+  <p>Ce texte n'est pas une liste de bonnes intentions. Il énonce les <strong class="souligne">droits que nous exigeons</strong>, et les renoncements que ceux qui construisent nos outils s'imposent pour les honorer : renoncer à capter notre attention, à nous vendre, à jouer de notre regret, à nous enfermer, à mesurer notre repos comme une faute.</p>
+  <p>Ce texte est écrit d'une seule voix — la nôtre. Chaque article nous appartient. Chacun de nous peut le revendiquer, le citer, l'opposer à quiconque prétend décider à sa place. Une économie numérique peut prospérer sans faire de notre intimité une marchandise ; nous en énonçons ici les conditions.</p>
+
+  <h2 class="titre">Article premier<span class="fr">De la nature de nos données</span></h2>
+  <p>Chacune de nos données représente une part de l'un de nous : une parole, une relation, une œuvre. À ce titre, <strong class="souligne">nos données ne sont pas un actif</strong>. Elles ne sont ni une matière première, ni une simple ressource économique. Les détenir crée un devoir envers nous — jamais un droit de propriété sur nous.</p>
+  <p>Ce principe précède tout le reste. Ce qui suit n'est pas une liste de faveurs qu'on nous accorde : c'est la conséquence directe de ce que nos données sont.</p>
+
+  <h2 class="titre">Titre I<span class="fr">De notre personne</span></h2>
+  <p class="article"><span class="lead">Article 2 — De notre dignité.</span> Chacun de nous est une fin, jamais un moyen : ni une ressource à extraire, ni un profil à exploiter, ni une métrique à maximiser. Aucun objectif — commercial, technique ou stratégique — ne justifie qu'on nous manipule, qu'on provoque notre dépendance, qu'on nous surveille en secret ou qu'on tire parti de nos fragilités.</p>
+  <p class="article"><span class="lead">Article 3 — De notre souveraineté.</span> Nous restons maîtres de nos données. Chacun de nous peut en masquer l'accès à autrui sans détruire sa propre mémoire, refuser de figurer dans une œuvre collective — même déjà payée par un tiers — et effacer ce qui le concerne. Notre droit passe toujours avant celui de la transaction.</p>
+  <p class="article"><span class="lead">Article 4 — De notre départ.</span> Chacun de nous peut partir quand il le veut, en emportant l'intégralité de ses données dans un format ouvert, documenté et réutilisable. Aucun verrou technique ne nous retiendra : on reste par attachement, jamais par captivité.</p>
+  <p class="article"><span class="lead">Article 5 — De notre protection quand nous sommes fragiles.</span> Enfants, aînés, endeuillés, isolés, malades ou simplement fragilisés : lorsque l'un de nous est vulnérable, il est davantage protégé, jamais davantage exploité — infrastructures dédiées, ni notation, ni comparaison, ni exposition. Notre vulnérabilité ne sera jamais un levier pour nous convertir. Et celui de nous qui a grandi ici mineur reçoit, au jour de sa majorité, l'histoire de sa vie numérique en pleine souveraineté — un passage de dignité, non une simple permission technique.</p>
+
+  <h2 class="titre">Titre II<span class="fr">De nos rythmes</span></h2>
+  <p class="article"><span class="lead">Article 6 — De notre attention.</span> Notre attention n'est pas une matière première. Notifications, recommandations et relances doivent servir un besoin qui est réellement le nôtre, jamais l'obsession de nous faire revenir, cliquer ou rester. Un bon outil augmente la valeur du temps que nous choisissons, non la durée du temps qu'il nous prend.</p>
+  <p class="article"><span class="lead">Article 7 — De notre silence et de notre repos.</span> Ne rien faire est un droit. Aucun système ne lira notre silence comme un manque, une dette ou un problème à corriger, et ne relancera celui de nous qui est resté tranquille. Nous avons le droit d'être absents ; c'est aux outils de respecter nos rythmes, pas à nous de suivre les leurs. <strong class="souligne">Un système humain ne panique pas devant notre silence.</strong></p>
+  <p class="article"><span class="lead">Article 8 — De l'asymétrie de l'attention.</span> Un geste que l'un de nous porte à un autre peut être rendu visible par un signal doux. L'absence de geste, elle, ne sera jamais affichée, comptée ni devinée : on peut célébrer qui a été présent, jamais désigner qui ne l'a pas été. Les compteurs de dette relationnelle, les accusés de lecture imposés et les scores de présence n'ont pas leur place parmi nous.</p>
+  <p class="article"><span class="lead">Article 9 — Contre la manipulation.</span> Aucune interface ne nous poussera à agir contre notre intérêt, ne cachera le moyen de refuser, ne compliquera notre sortie, ni ne rendra le choix le plus sain moins visible que le plus rentable. On ne jouera jamais de notre regret : la peur de rater, la culpabilité et l'urgence fabriquée ne sont pas des instruments de croissance. Un accord arraché à notre fatigue n'est pas un consentement.</p>
+
+  <h2 class="titre">Titre III<span class="fr">De notre mémoire</span></h2>
+  <p class="article"><span class="lead">Article 10 — De l'inaliénabilité de notre passé.</span> L'accès de chacun de nous à ses liens essentiels et à l'histoire brute de sa vie numérique ne dépendra jamais d'un paiement, d'une menace d'expiration ou d'une suppression punitive. On peut nous vendre de l'espace pour demain ; on ne menacera jamais la survie de notre hier. <strong class="souligne">Notre mémoire ne se rançonne pas.</strong></p>
+  <p class="article"><span class="lead">Article 11 — De la non-marchandisation.</span> On ne collecte de nous que le minimum nécessaire, on conserve avec raison, on nous explique les durées. Nos données ne sont ni vendues, ni louées, ni cédées à des fins publicitaires. Aucun de nos contenus n'entraîne une intelligence artificielle sans notre accord explicite, précis et révocable : la machine nous assiste, elle ne possède jamais nos histoires.</p>
+  <p class="article"><span class="lead">Article 12 — De l'économie qui nous respecte.</span> Nous payons pour un service réellement rendu — une mise en forme, une édition, un objet, un accompagnement — jamais pour le simple accès à nos propres liens. La valeur vient du travail ajouté, pas de l'exploitation silencieuse de ce que nous sommes.</p>
+
+  <h2 class="titre">Titre IV<span class="fr">De ce que nous exigeons</span></h2>
+  <p class="article"><span class="lead">Article 13 — De notre droit de comprendre.</span> Toute décision automatique qui pèse sur l'un de nous doit pouvoir lui être expliquée dans une langue claire. Nous savons quand une machine intervient, selon quelles logiques principales, et ce que nous pouvons faire pour la contester.</p>
+  <p class="article"><span class="lead">Article 14 — De la responsabilité qui se prouve.</span> Une bonne intention ne suffit pas : elle doit se voir dans l'architecture, les données, les mesures et les arbitrages budgétaires. <strong class="souligne">La bienveillance n'est pas un ton marketing : c'est une contrainte technique.</strong> La croissance et l'engagement restent subordonnés à notre confiance, à notre clarté et à l'allègement de notre charge mentale. Le silence de l'un de nous n'est jamais mesuré contre lui.</p>
+  <p class="article"><span class="lead">Article 15 — De l'honnêteté.</span> On ne nous présente rien comme acquis tant que ce n'est pas construit. Une promesse de sécurité, de chiffrement ou de pérennité s'affiche comme un engagement daté, jamais comme un fait accompli. Les écarts entre la parole et la pratique nous sont dits publiquement, avec les mesures prises pour les corriger.</p>
+  <p class="article"><span class="lead">Article 16 — De notre recours, et de ce texte qui est le nôtre.</span> Tout système peut nuire, même sans le vouloir : nous disposons toujours de voies simples pour signaler, contester, comprendre et obtenir réparation. Chaque évolution majeure est jugée à ses effets sur nous — qui gagne du pouvoir, qui devient exposé, qui peut partir, qui paie le vrai prix. Et cette Constitution est la nôtre : nous pouvons l'adopter, l'amender, la traduire, la critiquer, la forker. Elle ne nous protège vraiment que si nous nous en emparons.</p>
+
+  <hr class="filet-or" />
+
+  <section class="conclusion">
+    <h3 class="preambule">Conclusion</h3>
+    <p>Un autre numérique est possible : un numérique où nos données ne sont plus une marchandise, où notre confiance vaut davantage que notre captation, où notre silence est respecté, où nous restons souverains.</p>
+    <p>Un système vraiment humain ne se juge pas seulement à ce qu'il nous permet de faire, mais à ce qu'il refuse de nous faire. Aucune innovation ne mérite le nom de progrès si elle exige que nous devenions plus petits pour qu'elle devienne plus grande.</p>
+    <p>Parce que derrière chaque donnée, il y a l'un de nous — et qu'aucun modèle économique ne devrait jamais l'oublier.</p>
+  </section>
+
+  <hr class="filet-or" />
+
+  <section class="filiation">
+    <h3>Filiation — ce texte n'est pas seul</h3>
+    <p>La présente Constitution rejoint une famille de textes qui, partout dans le monde, tentent de remettre la personne au centre du numérique. Trois d'entre eux méritent particulièrement votre lecture&nbsp;:</p>
+    <ol>
+      <li><a href="https://digital-strategy.ec.europa.eu/fr/library/european-declaration-digital-rights-and-principles">Déclaration européenne sur les droits et principes numériques</a> <span class="qui">— Union européenne, 2022. Le socle institutionnel&nbsp;: vos droits numériques reconnus à l'échelle d'un continent.</span></li>
+      <li><a href="https://copenhagenletter.org">The Copenhagen Letter</a> <span class="qui">— 150 artisans de la tech, 2017. Le serment des créateurs&nbsp;: «&nbsp;placer l'humain avant le business&nbsp;», refuser le design de l'addiction et de la tromperie.</span></li>
+      <li><a href="https://contractfortheweb.org">Contract for the Web</a> <span class="qui">— Tim Berners-Lee, 2019. Le pacte du créateur du Web&nbsp;: États, entreprises et citoyens engagés ensemble pour un Web qui sert les personnes.</span></li>
+    </ol>
+  </section>
+
+  <footer>
+    <div class="liens">
+      <a href="https://github.com/gilletaurelien-art/Digital-Constitution">Texte intégral &amp; amendements</a>
+      <a href="https://github.com/gilletaurelien-art/Digital-Constitution/blob/main/SIGNATORIES.md">Signataires</a>
+      <a href="https://github.com/gilletaurelien-art/Digital-Constitution/tree/main/translations/en">English version</a>
+      <a href="https://github.com/gilletaurelien-art/Digital-Constitution/blob/main/LICENSE">Licence</a>
+      <a href="https://manahome.org">L'univers Mana</a>
+    </div>
+    <p class="signature">Ce texte est le nôtre : adoptez-le, amendez-le, traduisez-le, forkez-le. Une constitution n'est jamais terminée.</p>
+  </footer>
+
+</main>
+
+<!-- Signature commune de l'univers MANA -->
+<div class="powered-tempo">
+  <a href="https://temposystem.fr" target="_blank" rel="noopener noreferrer" aria-label="Propulsé par TEMPOsystem">
+    <span class="pt-prefix">propulsé par</span>
+    <img src="temposystem-butterfly.png" alt="" aria-hidden="true" />
+    <span class="pt-word"><span class="pt-tempo">TEMPO</span><span class="pt-system">system</span></span>
+  </a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+# https://constitution.temposystem.org
+User-agent: *
+Allow: /
+
+Sitemap: https://constitution.temposystem.org/sitemap.xml
